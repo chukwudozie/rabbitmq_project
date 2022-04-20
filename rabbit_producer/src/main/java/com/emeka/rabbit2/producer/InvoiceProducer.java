@@ -14,13 +14,13 @@ public class InvoiceProducer {
 	private RabbitTemplate rabbitTemplate;
 
 	private static final String EXCHANGE = "x.invoice";
-
+// The consistent hash exchange distributes identifier put on the routing key when published
 	public void sendInvoiceCreated(InvoiceCreatedMessage message) {
-		rabbitTemplate.convertAndSend(EXCHANGE, "", message);
+		rabbitTemplate.convertAndSend(EXCHANGE, message.getInvoiceNumber(), message);
 	}
 
 	public void sendInvoicePaid(InvoicePaidMessage message) {
-		rabbitTemplate.convertAndSend(EXCHANGE, "", message);
+		rabbitTemplate.convertAndSend(EXCHANGE, message.getInvoiceNumber(), message);
 	}
 
 	public void sendInvoiceCancelled(InvoiceCancelledMessage message) {
