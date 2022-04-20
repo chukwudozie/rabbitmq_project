@@ -23,9 +23,9 @@ public class RabbitProducerApplication  implements CommandLineRunner {
     }
     @Autowired
 //    private MultiplePrefetchProducer producer;
-//    private InvoiceProducer producer;
+    private InvoiceProducer producer;
 //    private SingleActiveProducer producer;
-    private ReliableProducer producer;
+//    private ReliableProducer producer;
 
 //    @Override
 //    public void run(String... args) throws Exception {
@@ -57,19 +57,19 @@ public class RabbitProducerApplication  implements CommandLineRunner {
     // for demonstrating consistent hash exchange
     @Override
     public void run(String... args) throws Exception {
-//        for (int i = 0; i < 200; i++){
-//            String invoiceNumber = "INV-"+ (i % 60);
-//            InvoiceCreatedMessage invoice = new InvoiceCreatedMessage(ThreadLocalRandom.current().nextInt(200),
-//                    LocalDate.now(), "USD",invoiceNumber);
-//            producer.sendInvoiceCreated(invoice);
-//        }
+        for (int i = 0; i < 10; i++){
+            String invoiceNumber = "INV-"+ i;
+            InvoiceCancelledMessage invoice = new InvoiceCancelledMessage(LocalDate.now(),
+                    invoiceNumber, "Test"+i);
+            producer.sendInvoiceCancelled(invoice);
+//            System.out.println("done");
+        }
 //        producer.sendDummy(); // for SAC
-
-        DummyMessage dummy1 = new DummyMessage("Invalid key",10);
-        DummyMessage dummy2 = new DummyMessage("Invalid exchange", 20);
-        producer.sendDummyWithInvalidRoutingKey(dummy1);
-        producer.sendDummyWithInvalidExchange(dummy2);
-        System.out.println("done");
+//        DummyMessage dummy1 = new DummyMessage("Invalid key",10);
+//        DummyMessage dummy2 = new DummyMessage("Invalid exchange", 20);
+//        producer.sendDummyWithInvalidRoutingKey(dummy1);
+//        producer.sendDummyWithInvalidExchange(dummy2);
+//        System.out.println("done");
     }
 
 

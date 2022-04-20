@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-@Service
+//@Service
 public class ReliableProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReliableProducer.class);
 
